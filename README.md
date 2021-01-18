@@ -19,6 +19,11 @@ Most configuration files will live in `~/.config/{package}/`. The names of the c
 
 ### Session and Startup
 
+#### Current Session
+For xfwm4, click 'Immediately' and change it to the  'Never' option.
+For xfdesktop, click 'Immediately' and change it to the 'Never' option
+
+
 #### Keyboard Shortcuts
 | Command                     | Shortcut       |
 | --------------------------- | -------------- |
@@ -34,6 +39,4 @@ Description: Tiling Window Manager
 Command: i3
 ```
 
-#### Current Session
-For xfwm4, click 'Immediately' and change it to the  'Never' option.
-For xfdesktop, click 'Immediately' and change it to the 'Never' option
+Restart the machine, or `sudo reboot`
