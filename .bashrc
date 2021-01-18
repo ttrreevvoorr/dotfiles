@@ -64,17 +64,45 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
+LONGNAME="$USER"
+SHORTNAME=${LONGNAME:0:4}
+USERDISPLAY="${LONGNAME}"
+
+LONGHOST="${HOSTNAME}"
+SHORTHOST="${HOSTNAME:0:4}"
+HOSTDISPLAY="${LONGHOST}"
+
+
+PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]$USERDISPLAY\[\033[01;31m\]@\[\033[01;34m\]$HOSTDISPLAY\[\033[00m\]:\[\033[01;34m\]\W \[\033[01;33m\]⚙ \[\[\033[00m\]'
+
 
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
 
-LONGNAME="$USER"
-SHORTNAME=${LONGNAME:1}
-PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]$LONGNAME\[\033[01;31m\]@\[\033[01;34m\]\h\[\033[00m\]:\[\033[01;34m\]\W \[\033[01;33m\]⚙ \[\[\033[00m\]'
-
-
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+
+greeting () {
+# http://patorjk.com/software/taag-v1/
+# https://colordesigner.io/gradient-generator
+if $GREETME; then
+	echo -e "\033[38;2;254;039;064m dP\"\"Yb \033[0;00m \033[38;2;000;146;254m8888P 88   88 88     888888 88  dP\"Yb     db    88\"\"Yb \033[0;00m"
+	echo -e "\033[38;2;255;096;049mdP PY Yb \033[0;00m\033[38;2;000;180;255m  dP  88   88 88     88__   88 dP   Yb   dPYb   88__dP    \033[0;00m"
+	echo -e "\033[38;2;255;138;039mYb boodP \033[0;00m\033[38;2;000;204;215m dP   Y8   8P 88  .o 88\"\"   88 Yb b dP  dP__Yb  88\"Yb      \033[0;00m"
+	echo -e "\033[38;2;255;176;044m Ybooo   \033[0;00m\033[38;2;000;204;215md8888 \`YbodP' 88ood8 88     88  \`\"YoYo dP\"\"\"\"Yb 88  Yb \033[0;00m\n"
+
+#"\033[38;2;000;146;254m dP\"\"Yb  \033[0;00m  
+#"\033[38;2;000;146;254mdP PY Yb \033[0;00m 
+#"\033[38;2;000;146;254mYb boodP \033[0;00m
+#"\033[38;2;000;146;254m Ybooo   \033[0;00m
+
+fi
+}
+
+greeting
+
+
