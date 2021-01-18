@@ -74,3 +74,7 @@ LONGNAME="$USER"
 SHORTNAME=${LONGNAME:1}
 PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]$LONGNAME\[\033[01;31m\]@\[\033[01;34m\]\h\[\033[00m\]:\[\033[01;34m\]\W \[\033[01;33m\]⚙ \[\[\033[00m\]'
 
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

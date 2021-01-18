@@ -21,8 +21,18 @@ PACKAGE_LIST=(
 	compton
 	htop
 	neofetch
-	ranger
+#	ranger
 	g++
+	python3
+	python
+	pythonpy
+	make
+	build-essential
+	libxi-dev 
+	libglu1-mesa-dev 
+	libglew-dev 
+	pkg-config
+	screen
 )
 
 echo "Updating apt..."
@@ -49,4 +59,8 @@ for package_name in ${PURGE_LIST[@]}; do
 	sudo apt purge --auto-remove "$package_name" -y
 	echo "$package_name and its dependencies"
 done
+
+# Install NVM
+echo "Installing NVM"
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
 
