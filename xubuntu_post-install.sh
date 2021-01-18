@@ -18,7 +18,7 @@ PURGE_LIST=(
 )
 DELETED=()
 for package_name in ${PURGE_LIST[@]}; do
-	if sudo dnf list --installed | grep -q "^\<$package_name\>"; then
+	if sudo apt list --installed | grep -q "^\<$package_name\>"; then
 		echo "removing $package_name..."
 		sleep .5
 		sudo apt purge --auto-remove "$package_name" -y
@@ -62,7 +62,7 @@ NEW=()
 EXIST=()
 
 for package_name in ${PACKAGE_LIST[@]}; do
-	if ! sudo dnf list --installed | grep -q "^\<$package_name\>"; then
+	if ! sudo apt list --installed | grep -q "^\<$package_name\>"; then
 		echo "installing $package_name..."
 		sleep .5
 		sudo apt install "$package_name" -y
