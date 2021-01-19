@@ -60,11 +60,15 @@ alias l='ls -CF'
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
+# Handle naming, PS1
+# set USERALIAS to change display name
+# useful for aliasing real name in screenshots or streaming
+# export USERALIAS=""
 LONGNAME="$USER"
+if ! [ -z ${USERALIAS+x} ]; then
+	LONGNAME="${USERALIAS}"
+fi
+
 SHORTNAME=${LONGNAME:0:4}
 USERDISPLAY="${LONGNAME}"
 
@@ -72,10 +76,13 @@ LONGHOST="${HOSTNAME}"
 SHORTHOST="${HOSTNAME:0:4}"
 HOSTDISPLAY="${LONGHOST}"
 
-
 PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]$USERDISPLAY\[\033[01;31m\]@\[\033[01;34m\]$HOSTDISPLAY\[\033[00m\]:\[\033[01;34m\]\W \[\033[01;33m\]⚙ \[\[\033[00m\]'
 
 
+# Alias definitions.
+# You may want to put all your additions into a separate file like
+# ~/.bash_aliases, instead of adding them here directly.
+# See /usr/share/doc/bash-doc/examples in the bash-doc package.
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
@@ -94,15 +101,8 @@ if $GREETME; then
 	echo -e "\033[38;2;255;096;049mdP PY Yb \033[0;00m\033[38;2;000;180;255m  dP  88   88 88     88__   88 dP   Yb   dPYb   88__dP    \033[0;00m"
 	echo -e "\033[38;2;255;138;039mYb boodP \033[0;00m\033[38;2;000;204;215m dP   Y8   8P 88  .o 88\"\"   88 Yb b dP  dP__Yb  88\"Yb      \033[0;00m"
 	echo -e "\033[38;2;255;176;044m Ybooo   \033[0;00m\033[38;2;000;204;215md8888 \`YbodP' 88ood8 88     88  \`\"YoYo dP\"\"\"\"Yb 88  Yb \033[0;00m\n"
-
-#"\033[38;2;000;146;254m dP\"\"Yb  \033[0;00m  
-#"\033[38;2;000;146;254mdP PY Yb \033[0;00m 
-#"\033[38;2;000;146;254mYb boodP \033[0;00m
-#"\033[38;2;000;146;254m Ybooo   \033[0;00m
-
 fi
 }
 
 greeting
-
-
+neofetch

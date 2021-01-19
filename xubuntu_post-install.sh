@@ -56,6 +56,7 @@ PACKAGE_LIST=(
 	pkg-config
 	screen
 	tty-clock
+	bat
 )
 
 NEW=()
