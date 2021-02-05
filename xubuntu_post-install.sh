@@ -9,11 +9,14 @@ xfconf-query -c xsettings -p /Net/IconThemeName -s "Adwaita"
 echo "Updating apt..."
 sudo apt update
 
-## PURGE UNNECESSARY PACKAGES
+## PURGE UN-WANTED BLOAT
 
 PURGE_LIST=(
+	gnome-mines
+	gnome-sudoku
+	parole
 	pidgin
-	gimp
+	sgt-puzzles
 	xfce4-verve-plugin/focal
 )
 DELETED=()
@@ -21,7 +24,7 @@ for package_name in ${PURGE_LIST[@]}; do
 	if sudo apt list --installed | grep -q "^\<$package_name\>"; then
 		echo "removing $package_name..."
 		sleep .5
-		sudo apt purge --auto-remove "$package_name" -y
+		sudo apt-get purge --auto-remove "$package_name" -y
 		echo "Removed $package_name and its dependencies"
 		DELETED+=($package_name)
 	else
@@ -32,31 +35,33 @@ done
 ## INSTALL WANTED PACKAGES
 
 PACKAGE_LIST=(
-	vim
-	qbittorrent
-	qt5-gtk2-platformtheme
-	youtube-dl
-	i3
-	curl
-	wget
-	git-all
+	bat
+	build-essential
 	compton
-	htop
-	neofetch
-	ranger
+	curl
+	ffmpeg
+	git-all
 	g++
+	htop
+	i3
+	iftop
+	libglew-dev 
+	libxi-dev 
+	libglu1-mesa-dev 
+	make
+	neofetch
 	python3
 	python
 	pythonpy
-	make
-	build-essential
-	libxi-dev 
-	libglu1-mesa-dev 
-	libglew-dev 
 	pkg-config
+	qbittorrent
+	qt5-gtk2-platformtheme
+	ranger
 	screen
 	tty-clock
-	bat
+	vim
+	wget
+	youtube-dl
 )
 
 NEW=()
@@ -66,12 +71,12 @@ for package_name in ${PACKAGE_LIST[@]}; do
 	if ! sudo apt list --installed | grep -q "^\<$package_name\>"; then
 		echo "installing $package_name..."
 		sleep .5
-		sudo apt install "$package_name" -y
+		sudo apt-get install "$package_name" -y
 		echo "$package_name installed"
 		NEW+=($package_name)
 	else
 		echo "$package_name already installed"
-		EXIST+="$package_name"
+		EXIST+=($package_name)
 	fi
 done
 
@@ -86,6 +91,22 @@ else
 fi
 
 
-echo -en "New packages installed: \n${NEW}"
-echo -en "Packages That Already Existed: \n${EXIST}"
-echo -en "Deleted packages\n${DELETED}\n"
+## PRINT FOR USE WHAT HAS HAPPENED
+
+echo -en "\nNew packages installed:\n"
+for value in "${NEW[@]}"
+do
+	echo $value"\n"
+done	
+
+echo -en "\nPackages That Already Existed:\n"
+for value in "${EXIST[@]}"
+do
+	echo $value"\n"
+done	
+
+echo -en "\nDeleted packages:\n"
+for value in "${DELETED[@]}"
+do
+	echo $value "\n"
+done	
