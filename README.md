@@ -28,7 +28,7 @@ For xfdesktop, click 'Immediately' and change it to the 'Never' option
 | Command                     | Shortcut       |
 | --------------------------- | -------------- |
 | xfce4-screenshooter -f      | Print          |
-| xfce4-screenshooter -f      | Shift+Print    |
+| xfce4-screenshooter -r      | Shift+Print    |
 | xfce4-screenshooter -w      | Alt+Print      |
 
 #### Application Autostart
