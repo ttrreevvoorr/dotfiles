@@ -39,4 +39,10 @@ Description: Tiling Window Manager
 Command: i3
 ```
 
+Remove the existing desktop manager
+```
+sudo apt purge xfwm4
+sudo apt purge xfdesktop
+```
+
 Restart the machine, or `sudo reboot`
