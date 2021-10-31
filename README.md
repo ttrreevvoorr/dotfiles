@@ -1,5 +1,6 @@
 # dotfiles
-xfce workstation setup; a perpetual work in progress
+xfce workstation setup; a perpetual work in progress. Intended to be ran against fresh install of Xubuntu.
+I have also installed most of this on a bare Debian install, with some setup required for i3wm and etc.
 
 
 ```
@@ -15,7 +16,7 @@ Most configuration files will live in `~/.config/{package}/`. The names of the c
 
 ---
 
-## GUI Configurations
+## Xubuntu GUI Configurations
 
 ### Session and Startup
 
