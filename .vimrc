@@ -20,12 +20,17 @@ syntax on
 set list
 set listchars=tab:>-
 
-set tabstop=2
-
 set paste
-set autoindent
 set number
 set mouse=a
+
+set autoindent
+set smartindent
+set cindent
+
+set expandtab
+set tabstop=2
+set shiftwidth=2
 
 set incsearch
 set ignorecase

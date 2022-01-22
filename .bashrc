@@ -63,7 +63,7 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 # Handle naming, PS1
 # set USERALIAS to change display name
 # useful for aliasing real name in screenshots or streaming
-# export USERALIAS=""
+export USERALIAS="buttface6t4"
 LONGNAME="$USER"
 if ! [ -z ${USERALIAS+x} ]; then
 	LONGNAME="${USERALIAS}"
@@ -76,7 +76,7 @@ LONGHOST="${HOSTNAME}"
 SHORTHOST="${HOSTNAME:0:4}"
 HOSTDISPLAY="${LONGHOST}"
 
-PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]$USERDISPLAY\[\033[01;31m\]@\[\033[01;34m\]$HOSTDISPLAY\[\033[00m\]:\[\033[01;34m\]\W \[\033[01;33m\]⚙ \[\[\033[00m\]'
+PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]$USERDISPLAY\[\033[01;31m\]@\[\033[01;36m\]$HOSTDISPLAY\[\033[00m\]:\[\033[01;34m\]\W \[\033[01;33m\]⚙ \[\[\033[00m\]'
 
 
 # Alias definitions.
@@ -85,6 +85,13 @@ PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]$USERDISPLAY\[\033[01;31m\
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
+fi
+
+export SPICETIFY_INSTALL="home/ttrreevvoorr/spicetify_cli"
+export PATH="$SPISCETIFY_INSTALL:$PATH"
+
+if [ -d "$HOME/.local/bin" ] ; then
+    PATH="$HOME/.local/bin:$PATH"
 fi
 
 
@@ -97,12 +104,11 @@ greeting () {
 # http://patorjk.com/software/taag-v1/
 # https://colordesigner.io/gradient-generator
 if $GREETME; then
-	echo -e "\033[38;2;254;039;064m dP\"\"Yb \033[0;00m \033[38;2;000;146;254m8888P 88   88 88     888888 88  dP\"Yb     db    88\"\"Yb \033[0;00m"
-	echo -e "\033[38;2;255;096;049mdP PY Yb \033[0;00m\033[38;2;000;180;255m  dP  88   88 88     88__   88 dP   Yb   dPYb   88__dP    \033[0;00m"
-	echo -e "\033[38;2;255;138;039mYb boodP \033[0;00m\033[38;2;000;204;215m dP   Y8   8P 88  .o 88\"\"   88 Yb b dP  dP__Yb  88\"Yb      \033[0;00m"
-	echo -e "\033[38;2;255;176;044m Ybooo   \033[0;00m\033[38;2;000;204;215md8888 \`YbodP' 88ood8 88     88  \`\"YoYo dP\"\"\"\"Yb 88  Yb \033[0;00m\n"
+	echo -e "\033[38;2;254;039;064m dP\"\"Yb \033[0;00m \033[38;2;000;224;196m888888 88\"\"yb 88 8888b.  888888 88b 88 888888  \033[0;00m"
+	echo -e "\033[38;2;255;096;049mdP PY Yb \033[0;00m\033[38;2;000;201;248m  88   88__dP 88  8I  Yb 88__   88Yb88   88    \033[0;00m"
+	echo -e "\033[38;2;255;138;039mYb boodP \033[0;00m\033[38;2;000;165;255m  88   88\"Yb  88  8I  dY 88\"\"   88 Y88   88    \033[0;00m"
+	echo -e "\033[38;2;255;176;044m Ybooo   \033[0;00m\033[38;2;126;106;255m  88   88  Yb 88 8888Y\"  888888 88  Y8   88   \033[0;00m\n"
 fi
 }
-
 greeting
 neofetch

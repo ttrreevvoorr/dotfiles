@@ -90,6 +90,12 @@ else
 	echo "$NPMV"
 fi
 
+## INSTALL PATHOGEN;VIM
+mkdir -p ~/.vim/autoload ~/.vim/bundle && \
+curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+
+## INSTALL NERDTREE;VIM
+git clone https://github.com/preservim/nerdtree.git ~/.vim/bundle/nerdtree
 
 ## PRINT FOR USE WHAT HAS HAPPENED
 
