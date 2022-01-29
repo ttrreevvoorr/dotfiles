@@ -14,10 +14,13 @@ sudo apt update
 PURGE_LIST=(
 	gnome-mines
 	gnome-sudoku
+	mate-calc
 	parole
 	pidgin
 	sgt-puzzles
 	xfce4-verve-plugin/focal
+	xfce4-screensaver
+	xfce4-taskmanager
 )
 DELETED=()
 for package_name in ${PURGE_LIST[@]}; do
@@ -40,6 +43,7 @@ PACKAGE_LIST=(
 	compton
 	curl
 	ffmpeg
+	galculator
 	git-all
 	g++
 	htop
@@ -54,6 +58,7 @@ PACKAGE_LIST=(
 	python
 	pythonpy
 	pkg-config
+	krita
 	qbittorrent
 	qt5-gtk2-platformtheme
 	ranger
