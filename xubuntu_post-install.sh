@@ -43,7 +43,9 @@ PACKAGE_LIST=(
 	compton
 	curl
 	ffmpeg
-	galculator
+	fonts-font-awesome
+	fonts-inconsolata
+  galculator
 	git-all
 	g++
 	htop
@@ -101,6 +103,9 @@ curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
 ## INSTALL NERDTREE;VIM
 git clone https://github.com/preservim/nerdtree.git ~/.vim/bundle/nerdtree
+
+# STOP APACHE FROM AUTO START
+sudo update-rc.d apache2 disable
 
 ## PRINT FOR USE WHAT HAS HAPPENED
 
