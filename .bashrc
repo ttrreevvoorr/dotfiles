@@ -56,6 +56,7 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
+
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
@@ -63,7 +64,6 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 # Handle naming, PS1
 # set USERALIAS to change display name
 # useful for aliasing real name in screenshots or streaming
-export USERALIAS="buttface6t4"
 LONGNAME="$USER"
 if ! [ -z ${USERALIAS+x} ]; then
 	LONGNAME="${USERALIAS}"
@@ -78,7 +78,7 @@ HOSTDISPLAY="${LONGHOST}"
 
 PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]$USERDISPLAY\[\033[01;31m\]@\[\033[01;36m\]$HOSTDISPLAY\[\033[00m\]:\[\033[01;34m\]\W \[\033[01;33m\]⚙ \[\[\033[00m\]'
 
-
+PROTON_EAC_RUNTIME="/home/$USER/.steam/steam/steamapps/common/Proton EasyAntiCheat Runtime/" %command%
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
@@ -86,6 +86,9 @@ PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]$USERDISPLAY\[\033[01;31m\
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
+
+# export STEAM_ROOT=/media/ttrreevvoorr/Data_Drive/GAMES/Steam
+export STEAM_ROOT=/home/ttrreevvoorr/.local/share/Steam
 
 export SPICETIFY_INSTALL="home/ttrreevvoorr/spicetify_cli"
 export PATH="$SPISCETIFY_INSTALL:$PATH"

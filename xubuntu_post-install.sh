@@ -9,7 +9,7 @@ xfconf-query -c xsettings -p /Net/IconThemeName -s "Adwaita"
 echo "Updating apt..."
 sudo apt update
 
-## PURGE UN-WANTED BLOAT
+## PURGE SOME UN-WANTED PACKAGES
 
 PURGE_LIST=(
 	gnome-mines
@@ -65,10 +65,10 @@ PACKAGE_LIST=(
 	qt5-gtk2-platformtheme
 	ranger
 	screen
+  steam-installer
 	tty-clock
 	vim
 	wget
-	youtube-dl
 )
 
 NEW=()
