@@ -1,3 +1,5 @@
+(!) While this may work on some machines, this script has not been tested with Ubuntu Jammy. I got annoyed and I'm switching to Debian. <-- this sentence will be removed when this repo has been updated to reflect a Debian environment instead of Xubuntu
+
 # dotfiles
 xfce workstation setup; a perpetual work in progress. Intended to be ran against fresh install of Xubuntu.
 I have also installed most of this on a bare Debian install, with some setup required for i3wm and etc.
