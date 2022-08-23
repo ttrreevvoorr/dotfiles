@@ -1,24 +1,38 @@
-(!) While this may work on some machines, this script has not been tested with Ubuntu Jammy. I got annoyed and I'm switching to Debian. <-- this sentence will be removed when this repo has been updated to reflect a Debian environment instead of Xubuntu
+# Debian 11, XFCE, i3, Polybar
 
-# dotfiles
-xfce workstation setup; a perpetual work in progress. Intended to be ran against fresh install of Xubuntu.
-I have also installed most of this on a bare Debian install, with some setup required for i3wm and etc.
+- When prompted during install, select Debiand desktop environment, XFCE, and standard system utilities.
+- On initial boot, likely an error regarding lightdm, so enter tty (ctrl+alt+f2)
+- Install nvidia drivers if applicable, add `contrib non-free` to `deb` and `deb-src` entries in `/etc/apt/sources.list`
+- `sudo apt update && sudo apt upgrade`
+- Get driver dependencies `sudo apt -y install linux-headers-$(uname -r) build-essential libglvnd-dev pkg-config`
+- `sudo apt install -y nvidia-detect && nvidia-detect`
+- Will likely tell you default `nvidia-driver` is fine - don't believe the lies.
+- `sudo apt install nvidia-tesla-4XX-driver` or similar
+- blacklist noveau by doing something like `echo 'blacklist nouveau \n options nouveau modeset=0' > /etc/modprobe.d/blacklist-nouveau.conf` (double check this file to make sure that piped right)
+- `systemctl reboot`
+- Chances are all is working now, don't be fooled
+- `sudo update-initramfs -u` and see if missing firmware, so download what is missing.
+- Example, if some of `rtl_nic` are missing then wget them from: https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/tree/rtl_nic/ into this director: `/lib/firmware/rtl_nic/`
+- After installing the missing firmware, run `sudo update-initramfs -u` again
 
+## Installing packages
 
+```
+cd ~/Downloads && wget https://raw.githubusercontent.com/ttrreevvoorr/dotfiles/main/debian_post-install.sh
+chmod +x debian_post-install.sh && ./debian_post-install.sh
+```
+
+Starting moving files into appropriate locations:
 ```
 git clone https://github.com/ttrreevvoorr/dotfiles.git
 cd dotfiles
-chmod +x xubuntu_post-install.sh
-./xubuntu_post-install.sh
 ```
-
-The xubuntu_post-install.sh will install some preferred base packages and remove some unwanted existing packages.
 
 Most configuration files will live in `~/.config/{package}/`. The names of the configuration files in this repo have been changed for sake of easy understanding. For example, `i3.conf` in this repository is actually `~/.config/i3/config` on the machine.
 
 ---
 
-## Xubuntu GUI Configurations
+## XFCE GUI Configurations
 
 ### Session and Startup
 
