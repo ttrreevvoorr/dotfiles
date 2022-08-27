@@ -78,7 +78,8 @@ HOSTDISPLAY="${LONGHOST}"
 
 PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]$USERDISPLAY\[\033[01;31m\]@\[\033[01;36m\]$HOSTDISPLAY\[\033[00m\]:\[\033[01;34m\]\W \[\033[01;33m\]⚙ \[\[\033[00m\]'
 
-PROTON_EAC_RUNTIME="/home/$USER/.steam/steam/steamapps/common/Proton EasyAntiCheat Runtime/" %command%
+# PROTON_EAC_RUNTIME="/home/$USER/.steam/steam/steamapps/common/Proton EasyAntiCheat Runtime/" %command%
+
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
@@ -90,8 +91,8 @@ fi
 # export STEAM_ROOT=/media/ttrreevvoorr/Data_Drive/GAMES/Steam
 export STEAM_ROOT=/home/ttrreevvoorr/.local/share/Steam
 
-export SPICETIFY_INSTALL="home/ttrreevvoorr/spicetify_cli"
-export PATH="$SPISCETIFY_INSTALL:$PATH"
+#export SPICETIFY_INSTALL="home/ttrreevvoorr/spicetify_cli"
+#export PATH="$SPISCETIFY_INSTALL:$PATH"
 
 if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
@@ -107,10 +108,12 @@ greeting () {
 # http://patorjk.com/software/taag-v1/
 # https://colordesigner.io/gradient-generator
 if $GREETME; then
-	echo -e "\033[38;2;254;039;064m dP\"\"Yb \033[0;00m \033[38;2;000;224;196m888888 88\"\"yb 88 8888b.  888888 88b 88 888888  \033[0;00m"
-	echo -e "\033[38;2;255;096;049mdP PY Yb \033[0;00m\033[38;2;000;201;248m  88   88__dP 88  8I  Yb 88__   88Yb88   88    \033[0;00m"
-	echo -e "\033[38;2;255;138;039mYb boodP \033[0;00m\033[38;2;000;165;255m  88   88\"Yb  88  8I  dY 88\"\"   88 Y88   88    \033[0;00m"
-	echo -e "\033[38;2;255;176;044m Ybooo   \033[0;00m\033[38;2;126;106;255m  88   88  Yb 88 8888Y\"  888888 88  Y8   88   \033[0;00m\n"
+
+	echo -e "\033[38;2;254;039;064m dP\"\"Yb \033[0;00m \033[38;2;000;224;196m888P 88   88 88     888888 88  dP\"Yb     db    88\"\"Yb   \033[0;00m"
+	echo -e "\033[38;2;255;096;049mdP PY Yb \033[0;00m\033[38;2;000;201;248m dP  88   88 88     88__   88 dP   Yb   dPYb   88__dP \033[0;00m"
+	echo -e "\033[38;2;255;138;039mYb boodP \033[0;00m\033[38;2;000;165;255mdP   Y8   8P 88  .o 88\"\"   88 Yb b dP  dP__Yb  88\"Yb   \033[0;00m"
+	echo -e "\033[38;2;255;176;044m Ybooo  \033[0;00m\033[38;2;126;106;255m8888 \`YbodP\' 88ood8 88     88  \`\"YoYo dP\"\"\"\"Yb 88  Yb\n \033[0;00m"
+
 fi
 }
 greeting
