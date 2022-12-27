@@ -45,9 +45,10 @@ PACKAGE_LIST=(
 	ffmpeg
 	fonts-font-awesome
 	fonts-inconsolata
-  galculator
+	galculator
 	git-all
 	g++
+	gcc
 	htop
 	i3
 	iftop
@@ -56,6 +57,8 @@ PACKAGE_LIST=(
 	libglu1-mesa-dev 
 	make
 	neofetch
+	nitrogen
+	polybar
 	python3
 	python
 	pythonpy
@@ -65,7 +68,8 @@ PACKAGE_LIST=(
 	qt5-gtk2-platformtheme
 	ranger
 	screen
-  steam-installer
+	steam-installer
+	tree
 	tty-clock
 	vim
 	wget
