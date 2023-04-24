@@ -45,6 +45,7 @@ PACKAGE_LIST=(
 	ffmpeg
 	fonts-font-awesome
 	fonts-inconsolata
+	fonts-noto-color-emoji
 	galculator
 	git-all
 	g++
