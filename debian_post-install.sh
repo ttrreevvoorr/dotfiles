@@ -64,6 +64,7 @@ PACKAGE_LIST=(
 	python
 	pythonpy
 	pkg-config
+	jq
 	krita
 	qbittorrent
 	qt5-gtk2-platformtheme

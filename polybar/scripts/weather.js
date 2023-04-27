@@ -1,7 +1,7 @@
 #!/usr/bin/node
 
-const OPENWEATHER = "GET_YUR-oWN_LOL";
-const CITY = "000000";
+const OPENWEATHER = ""
+const CITY = "";
 
 const http = require("http");
 let type = false;
