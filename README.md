@@ -1,5 +1,5 @@
 <p align="center">
-    <img width="800" src="https://i.imgur.com/EWbA6Ao.png" alt="debian neofetch">
+    <img width="800" src="https://i.imgur.com/VZaq66x.jpg" alt="debian neofetch">
 </p>
 
 # Debian 11, XFCE, i3, Polybar
