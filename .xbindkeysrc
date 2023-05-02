@@ -1,0 +1,14 @@
+"pactl -- set-sink-volume @DEFAULT_SINK@ -2%"
+    b:8
+
+"pactl -- set-sink-volume @DEFAULT_SINK@ +2%"
+    b:9
+
+"pactl set-sink-mute @DEFAULT_SINK@ toggle"
+   XF86AudioMute
+
+"pactl -- set-sink-volume @DEFAULT_SINK@ -2%"
+    XF86AudioLowerVolume
+
+"pactl -- set-sink-volume @DEFAULT_SINK@ +2%"
+    XF86AudioRaiseVolume
