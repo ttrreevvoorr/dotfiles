@@ -1,6 +1,6 @@
 #!/usr/bin/node
 
-const OPENWEATHER = ""
+const OPENWEATHER = "get-ur-own-lmfao";
 const CITY = "";
 
 const http = require("http");

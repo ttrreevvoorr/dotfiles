@@ -26,6 +26,7 @@ set listchars=tab:>-
 
 set paste
 set number
+set relativenumber
 set mouse=a
 
 set autoindent

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-OPENWEATHER="";
+OPENWEATHER="get-ur-own-lol";
 CITY="";
 
 # Check if jq is installed
