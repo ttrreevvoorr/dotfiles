@@ -63,15 +63,21 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 
 # Handle naming, PS1
 # set USERALIAS to change display name
+#USERALIAS=user
 # useful for aliasing real name in screenshots or streaming
 LONGNAME="$USER"
 if ! [ -z ${USERALIAS+x} ]; then
-	LONGNAME="${USERALIAS}"
+  LONGNAME="${USERALIAS}"
 fi
 
 SHORTNAME=${LONGNAME:0:4}
 USERDISPLAY="${LONGNAME}"
 
+
+#HOSTALIAS=debian
+if ! [ -z ${HOSTALIAS+x} ]; then
+  HOSTNAME="${HOSTALIAS}"
+fi
 LONGHOST="${HOSTNAME}"
 SHORTHOST="${HOSTNAME:0:4}"
 HOSTDISPLAY="${LONGHOST}"
@@ -93,6 +99,7 @@ export STEAM_ROOT=/home/ttrreevvoorr/.local/share/Steam
 
 #export SPICETIFY_INSTALL="home/ttrreevvoorr/spicetify_cli"
 #export PATH="$SPISCETIFY_INSTALL:$PATH"
+export PATH=$PATH:/usr/local/go/bin
 
 if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
@@ -102,7 +109,9 @@ fi
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
+. "$HOME/.cargo/env"
 
 greeting () {
 # http://patorjk.com/software/taag-v1/
@@ -118,3 +127,4 @@ fi
 }
 greeting
 neofetch
+
