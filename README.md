@@ -44,8 +44,6 @@ git clone https://github.com/ttrreevvoorr/dotfiles.git
 cd dotfiles
 ```
 
-Most configuration files will live in `~/.config/{package}/`. The names of the configuration files in this repo have been changed for sake of easy understanding. For example, `i3.conf` in this repository is actually `~/.config/i3/config` on the machine.
-
 ---
 
 ## XFCE GUI Configurations
