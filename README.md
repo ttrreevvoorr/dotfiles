@@ -4,6 +4,11 @@
 
 # Debian 11, XFCE, i3, Polybar
 
+## Todo:
+
+- Rewrite this script to use Pacman; Friendship ended with Debian. Arch is my new best friend
+- Include (Polybar?) configs for laptop as well as desktop
+
 I wrote this script to streamlline the process of reinstalling my OS. There are many dotfiles here, and you may feel free to leverage those. Unless you plan on installing a new OS, you do not need to read the following.
 
 - When prompted during install, select Debiand desktop environment, XFCE, and standard system utilities.
