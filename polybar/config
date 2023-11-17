@@ -419,7 +419,7 @@ exec = ~/.config/polybar/scripts/caps.sh
 [module/cpu_temp]
 type = custom/script
 interval=2
-format-prefix = "Temp "
+format-prefix = "CPU Temp "
 format-prefix-foreground = ${colors.primary}
 exec = ~/.config/polybar/scripts/cpu_temp.sh
 
