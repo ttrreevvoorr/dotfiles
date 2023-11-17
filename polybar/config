@@ -31,7 +31,8 @@ teal = #03fCEC
 
 
 [bar/primary]
-monitor = DP-0
+# monitor = DP-0
+monitor = HDMI-0
 width = 100%
 height = 2.75%
 radius = 0
@@ -180,31 +181,31 @@ reverse-scroll = false
 fuzzy-match = true
 
 ws-icon-0 = 1; 
-ws-icon-1 = 2;
+ws-icon-1 = 2;
 ws-icon-2 = 3;
 ws-icon-3 = 4;
 ws-icon-4 = 5;
 ws-icon-5 = 6; 
 ws-icon-6 = 7;
 ws-icon-7 = 8;
-ws-icon-8 = 9;
-ws-icon-9 = 10;
+ws-icon-8 = 9;
+ws-icon-9 = 10;
 
 format = <label-state>
 format-background = ${color.shade2}
 label-occupied = %icon%
 
 label-focused = %name% %icon%
-label-focused-foreground = ${color.fg}
-label-focused-background = ${color.ac}
-;label-focused-underline = ${color.ac}
-label-focused-underline = ${color.red}
+label-focused-foreground = ${colors.fg}
+label-focused-background = ${colors.ac}
+;label-focused-underline = ${colors.ac}
+label-focused-underline = ${colors.red}
 label-focused-padding = 1
 
 label-unfocused = %name% %icon%
-label-unfocused-foreground = ${color.fg}
-label-unfocused-background = ${color.mf}
-label-unfocused-underline = ${color.mf}
+label-unfocused-foreground = ${colors.fg}
+label-unfocused-background = ${colors.mf}
+label-unfocused-underline = ${colors.mf}
 label-unfocused-padding = 1
 
 label-visible = %name% %icon%
@@ -212,8 +213,8 @@ label-visible-underline = #555555
 label-visible-padding = 1
 
 label-urgent = %icon%
-label-urgent-foreground = ${color.fg}
-label-urgent-background = ${color.red}
+label-urgent-foreground = ${colors.fg}
+label-urgent-background = ${colors.red}
 label-urgent-padding = 1
 
 
@@ -257,7 +258,8 @@ label = %title:0:60:...%
 type = internal/fs
 interval = 25
 
-mount-0 = /home
+# mount-0 = /home
+mount-0 = /
 
 #label-mounted = %{F#F0C674}%mountpoint%%{F-} %percentage_used%%
 label-mounted = %{F#F0C674} %{F-}%percentage_used%%

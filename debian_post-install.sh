@@ -40,6 +40,7 @@ done
 PACKAGE_LIST=(
 	bat
 	build-essential
+	cmake
 	compton
 	curl
 	ffmpeg
