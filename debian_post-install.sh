@@ -12,96 +12,98 @@ sudo apt update
 ## PURGE SOME UN-WANTED PACKAGES
 
 PURGE_LIST=(
-	gnome-mines
-	gnome-sudoku
-	mate-calc
-	parole
-	pidgin
-	sgt-puzzles
-	xfce4-verve-plugin/focal
-	xfce4-screensaver
-	xfce4-taskmanager
+  gnome-mines
+  gnome-sudoku
+  mate-calc
+  parole
+  pidgin
+  sgt-puzzles
+  xfce4-verve-plugin/focal
+  xfce4-screensaver
+  xfce4-taskmanager
 )
 DELETED=()
 for package_name in ${PURGE_LIST[@]}; do
-	if sudo apt list --installed | grep -q "^\<$package_name\>"; then
-		echo "removing $package_name..."
-		sleep .5
-		sudo apt-get purge --auto-remove "$package_name" -y
-		echo "Removed $package_name and its dependencies"
-		DELETED+=($package_name)
-	else
-		echo "$package_name was not removed, as it is not installed."
-	fi
+  if sudo apt list --installed | grep -q "^\<$package_name\>"; then
+    echo "removing $package_name..."
+    sleep .5
+    sudo apt-get purge --auto-remove "$package_name" -y
+    echo "Removed $package_name and its dependencies"
+    DELETED+=($package_name)
+  else
+    echo "$package_name was not removed, as it is not installed."
+  fi
 done
 
 ## INSTALL WANTED PACKAGES
 
 PACKAGE_LIST=(
-	bat
-	build-essential
-	cmake
-	compton
-	curl
-	ffmpeg
-	fonts-font-awesome
-	fonts-inconsolata
-	fonts-noto-color-emoji
-	galculator
-	git-all
-	g++
-	gcc
-	htop
-	i3
-	iftop
-	libglew-dev 
-	libxi-dev 
-	libglu1-mesa-dev 
-	make
-	neofetch
-	nitrogen
-	polybar
-	python3
-	python
-	pythonpy
-	pkg-config
-	jq
-	krita
-	qbittorrent
-	qt5-gtk2-platformtheme
-	ranger
-	screen
-	steam-installer
-	tree
-	tty-clock
-	vim
-	wget
+  bat
+  build-essential
+  cmake
+  compton
+  curl
+  ffmpeg
+  fonts-font-awesome
+  fonts-inconsolata
+  fonts-noto-color-emoji
+  galculator
+  git-all
+  g++
+  gcc
+  htop
+  i3
+  iftop
+  libglew-dev 
+  libxi-dev 
+  libglu1-mesa-dev 
+  make
+  neofetch
+  nitrogen
+  polybar
+  python3
+  python
+  pythonpy
+  pkg-config
+  jq
+  krita
+  qbittorrent
+  qt5-gtk2-platformtheme
+  ranger
+  sensors-detect
+  screen
+  steam-installer
+  tmux
+  tree
+  tty-clock
+  vim
+  wget
 )
 
 NEW=()
 EXIST=()
 
 for package_name in ${PACKAGE_LIST[@]}; do
-	if ! sudo apt list --installed | grep -q "^\<$package_name\>"; then
-		echo "installing $package_name..."
-		sleep .5
-		sudo apt-get install "$package_name" -y
-		echo "$package_name installed"
-		NEW+=($package_name)
-	else
-		echo "$package_name already installed"
-		EXIST+=($package_name)
-	fi
+  if ! sudo apt list --installed | grep -q "^\<$package_name\>"; then
+    echo "installing $package_name..."
+    sleep .5
+    sudo apt-get install "$package_name" -y
+    echo "$package_name installed"
+    NEW+=($package_name)
+  else
+    echo "$package_name already installed"
+    EXIST+=($package_name)
+  fi
 done
 
 ## INSTALL PACKGES FROM SOURCE
 if ! nvm; then
-	echo "Installing NVM"
-	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
+  echo "Installing NVM"
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
 else
-	echo "Node Version Manager (nvm) is already installed"
-	NPMV=$(nvm -v)
-	echo "$NPMV"
+  echo "Node Version Manager (nvm) is already installed"
+  NPMV=$(nvm -v)
+  echo "$NPMV"
 fi
 
 ## INSTALL PATHOGEN;VIM
@@ -119,17 +121,17 @@ sudo update-rc.d apache2 disable
 echo -en "\nNew packages installed:\n"
 for value in "${NEW[@]}"
 do
-	echo $value"\n"
-done	
+  echo $value"\n"
+done  
 
 echo -en "\nPackages That Already Existed:\n"
 for value in "${EXIST[@]}"
 do
-	echo $value"\n"
-done	
+  echo $value"\n"
+done  
 
 echo -en "\nDeleted packages:\n"
 for value in "${DELETED[@]}"
 do
-	echo $value "\n"
-done	
+  echo $value "\n"
+done  
