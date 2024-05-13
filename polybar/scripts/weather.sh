@@ -1,7 +1,7 @@
 #!/bin/bash
 
-OPENWEATHER="9850ce246c8055c57bf6a5be30ff5489";
-CITY="5404794";
+OPENWEATHER="get-your-own";
+CITY="find-yours";
 
 # Check if jq is installed
 if ! command -v jq &>/dev/null; then

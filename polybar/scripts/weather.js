@@ -1,7 +1,7 @@
 #!/usr/bin/node
 
-const OPENWEATHER = "9850ce246c8055c57bf6a5be30ff5489";
-const CITY = "5404794";
+const OPENWEATHER = "get-your-own";
+const CITY = "find-yours";
 
 const http = require("http");
 let type = false;
