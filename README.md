@@ -2,9 +2,11 @@
     <img width="800" src="https://i.imgur.com/VZaq66x.jpg" alt="debian neofetch">
 </p>
 
+TODO: Provide Arch installation steps also/instead. No longer use Debian on personal machine.
+
 # Debian 11, XFCE, i3, Polybar
 
-I wrote this script to streamlline the process of reinstalling my OS. There are many dotfiles here, and you may feel free to leverage those. Unless you plan on installing a new OS, you do not need to read the following.
+I wrote this script to streamline the process of reinstalling my OS. There are many dotfiles here, and you may feel free to leverage those. Unless you plan on installing a new OS, you do not need to read the following.
 
 - When prompted during install, select Debiand desktop environment, XFCE, and standard system utilities.
 - On initial boot, likely an error regarding lightdm, so enter tty (ctrl+alt+f2)
