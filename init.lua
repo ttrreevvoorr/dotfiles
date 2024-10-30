@@ -1,5 +1,3 @@
-
-
 -- Set options
 vim.opt.termguicolors = true
 vim.opt.number = true
@@ -7,13 +5,13 @@ vim.opt.relativenumber = true
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
-vim.opt.paste = true
+-- vim.opt.paste = true
 vim.opt.autoindent = true
 vim.opt.smartindent = true
 vim.opt.cindent = true
 vim.opt.cursorcolumn = true
 vim.opt.statusline = "%F"
-vim.opt.laststatus = 2
+vim.opt.laststatus = 3
 vim.opt.foldmethod = "indent"
 vim.opt.foldlevel = 99
 vim.opt.foldclose = "all"
@@ -24,9 +22,11 @@ vim.opt.hlsearch = true
 vim.opt.mouse = "a"
 vim.opt.wildignore = { "*node_modules*" }
 vim.opt.path:append(".,**")
+vim.diagnostic.config({
+  virtual_text = false,
+})
 
 -- Plugin management with lazy.nvim
-
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
   local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
@@ -103,7 +103,18 @@ require('lazy').setup({
             vim.g.neoformat_enabled_typescript = {'prettier'}
             vim.g.neoformat_enabled_javascript = {'prettier'}
         end
-    }
+    },
+    {
+        "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+        config = function()
+	require("lsp_lines").setup()
+	end,
+    },
+    { "github/copilot.vim" },
+    { "RRethy/vim-illuminate"},
+    { "lewis6991/gitsigns.nvim" },
+
+    
 }, {
     debug = true,
 })
@@ -113,7 +124,128 @@ vim.cmd [[
     autocmd BufWritePre *.ts Neoformat
 ]]
 
+vim.keymap.set(
+  "",
+  "<Leader>l",
+  require("lsp_lines").toggle,
+  { desc = "Toggle lsp_lines" }
+)
+
+-- Dumb ass icons in the tree thing
 require'nvim-web-devicons'.get_icons()
+
+-- default configuration
+require('illuminate').configure({
+    -- providers: provider used to get references in the buffer, ordered by priority
+    providers = {
+        'lsp',
+        'treesitter',
+        'regex',
+    },
+    -- delay: delay in milliseconds
+    delay = 100,
+    -- filetype_overrides: filetype specific overrides.
+    -- The keys are strings to represent the filetype while the values are tables that
+    -- supports the same keys passed to .configure except for filetypes_denylist and filetypes_allowlist
+    filetype_overrides = {},
+    -- filetypes_denylist: filetypes to not illuminate, this overrides filetypes_allowlist
+    filetypes_denylist = {
+        'dirbuf',
+        'dirvish',
+        'fugitive',
+    },
+    -- filetypes_allowlist: filetypes to illuminate, this is overridden by filetypes_denylist
+    -- You must set filetypes_denylist = {} to override the defaults to allow filetypes_allowlist to take effect
+    filetypes_allowlist = {},
+    -- modes_denylist: modes to not illuminate, this overrides modes_allowlist
+    -- See `:help mode()` for possible values
+    modes_denylist = {},
+    -- modes_allowlist: modes to illuminate, this is overridden by modes_denylist
+    -- See `:help mode()` for possible values
+    modes_allowlist = {},
+    -- providers_regex_syntax_denylist: syntax to not illuminate, this overrides providers_regex_syntax_allowlist
+    -- Only applies to the 'regex' provider
+    -- Use :echom synIDattr(synIDtrans(synID(line('.'), col('.'), 1)), 'name')
+    providers_regex_syntax_denylist = {},
+    -- providers_regex_syntax_allowlist: syntax to illuminate, this is overridden by providers_regex_syntax_denylist
+    -- Only applies to the 'regex' provider
+    -- Use :echom synIDattr(synIDtrans(synID(line('.'), col('.'), 1)), 'name')
+    providers_regex_syntax_allowlist = {},
+    -- under_cursor: whether or not to illuminate under the cursor
+    under_cursor = true,
+    -- large_file_cutoff: number of lines at which to use large_file_config
+    -- The `under_cursor` option is disabled when this cutoff is hit
+    large_file_cutoff = nil,
+    -- large_file_config: config to use for large files (based on large_file_cutoff).
+    -- Supports the same keys passed to .configure
+    -- If nil, vim-illuminate will be disabled for large files.
+    large_file_overrides = nil,
+    -- min_count_to_highlight: minimum number of matches required to perform highlighting
+    min_count_to_highlight = 1,
+    -- should_enable: a callback that overrides all other settings to
+    -- enable/disable illumination. This will be called a lot so don't do
+    -- anything expensive in it.
+    should_enable = function(bufnr) return true end,
+    -- case_insensitive_regex: sets regex case sensitivity
+    case_insensitive_regex = false,
+})
+require('gitsigns').setup {
+  signs = {
+    add          = { text = '┃' },
+    change       = { text = '┃' },
+    delete       = { text = '_' },
+    topdelete    = { text = '‾' },
+    changedelete = { text = '~' },
+    untracked    = { text = '┆' },
+  },
+  signs_staged = {
+    add          = { text = '┃' },
+    change       = { text = '┃' },
+    delete       = { text = '_' },
+    topdelete    = { text = '‾' },
+    changedelete = { text = '~' },
+    untracked    = { text = '┆' },
+  },
+  signs_staged_enable = true,
+  signcolumn = true,  -- Toggle with `:Gitsigns toggle_signs`
+  numhl      = false, -- Toggle with `:Gitsigns toggle_numhl`
+  linehl     = false, -- Toggle with `:Gitsigns toggle_linehl`
+  word_diff  = false, -- Toggle with `:Gitsigns toggle_word_diff`
+  watch_gitdir = {
+    follow_files = true
+  },
+  auto_attach = true,
+  attach_to_untracked = false,
+  current_line_blame = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
+  current_line_blame_opts = {
+    virt_text = true,
+    virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
+    delay = 1000,
+    ignore_whitespace = false,
+    virt_text_priority = 100,
+    use_focus = true,
+  },
+  current_line_blame_formatter = '<author>, <author_time:%R> - <summary>',
+  sign_priority = 6,
+  update_debounce = 100,
+  status_formatter = nil, -- Use default
+  max_file_length = 40000, -- Disable if file is longer than this (in lines)
+  preview_config = {
+    -- Options passed to nvim_open_win
+    border = 'single',
+    style = 'minimal',
+    relative = 'cursor',
+    row = 0,
+    col = 1
+  },
+}
+
+
+vim.api.nvim_set_keymap('i', '<C-j>', '<Plug>(copilot-next)', {})
+vim.api.nvim_set_keymap('i', '<C-k>', '<Plug>(copilot-previous)', {})
+vim.api.nvim_set_keymap('i', '<TAB>', 'copilot#Accept("<CR>")', { expr = true, noremap = true, silent = true })
+
+
 
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<C-p>', builtin.find_files, { desc = 'Telescope find files' })
@@ -172,6 +304,6 @@ require("nvim-tree").setup({
     group_empty = true,
   },
   filters = {
-    dotfiles = true,
+    dotfiles = false,
   },
 })
