@@ -1,7 +1,7 @@
 #!/bin/bash
 
-OPENWEATHER="get-your-own";
-CITY="find-yours";
+OPENWEATHER=""; # https://home.openweathermap.org/api_keys
+CITY=""; # https://openweathermap.org/find
 
 # Check if jq is installed
 if ! command -v jq &>/dev/null; then
