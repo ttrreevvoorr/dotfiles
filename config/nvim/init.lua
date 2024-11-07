@@ -42,10 +42,13 @@ require('lazy').setup({
 		{ 'nvim-tree/nvim-web-devicons' },
     { 'vim-syntastic/syntastic' },
     {
-        'neovim/nvim-lspconfig', -- LSP configurations
+        'neovim/nvim-lspconfig',
         config = function()
-            -- Set up TypeScript LSP
             require('lspconfig').ts_ls.setup{
+                init_options = {
+                  maxTsServerMemory = 16384, -- Unhinged
+                },
+                -- cmd = { "node", "--max-old-space-size=16384", "tsserver" },
                 on_attach = function(client, bufnr)
                     -- Key mappings for LSP functions
                     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
@@ -106,24 +109,25 @@ require('lazy').setup({
     },
     {
         "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-        config = function()
-	require("lsp_lines").setup()
-	end,
+          config = function()
+          require("lsp_lines").setup()
+        end,
     },
     { "github/copilot.vim" },
     { "RRethy/vim-illuminate"},
     { "lewis6991/gitsigns.nvim" },
-
-    
+    { "MunifTanjim/eslint.nvim" }
 }, {
     debug = true,
 })
+
 
 -- Auto format on save
 vim.cmd [[
     autocmd BufWritePre *.ts Neoformat
 ]]
 
+-- For when I just want to write code without the computer yelling at me
 vim.keymap.set(
   "",
   "<Leader>l",
@@ -131,10 +135,32 @@ vim.keymap.set(
   { desc = "Toggle lsp_lines" }
 )
 
+local eslint = require("eslint")
+eslint.setup({
+  bin = 'eslint', -- or `eslint_d`
+  code_actions = {
+    enable = true,
+    apply_on_save = {
+      enable = true,
+      types = { "directive", "problem", "suggestion", "layout" },
+    },
+    disable_rule_comment = {
+      enable = true,
+      location = "separate_line", -- or `same_line`
+    },
+  },
+  diagnostics = {
+    enable = true,
+    report_unused_disable_directives = false,
+    run_on = "type", -- or `save`
+  },
+})
+
+
 -- Dumb ass icons in the tree thing
 require'nvim-web-devicons'.get_icons()
 
--- default configuration
+-- The thing that highlights all the things under cursor 
 require('illuminate').configure({
     -- providers: provider used to get references in the buffer, ordered by priority
     providers = {
@@ -290,7 +316,7 @@ cmp.setup({
 })
 
 vim.api.nvim_set_keymap('n', '<C-b>', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
--- vim.api.nvim_set_keymap('n', '<C-b>', ':NvimTreeFindFile<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-f>', ':NvimTreeFindFile<CR>', { noremap = true, silent = true })
 
 vim.opt.termguicolors = true
 require("nvim-tree").setup({
