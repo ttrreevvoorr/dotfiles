@@ -2,7 +2,10 @@
     <img width="800" src="https://i.imgur.com/VZaq66x.jpg" alt="debian neofetch">
 </p>
 
-TODO: Provide Arch installation steps also/instead. No longer use Debian on personal machine.
+
+
+> [!NOTE]  
+> TODO: Provide Arch installation steps also/instead. No longer use Debian on personal machine.
 
 # Debian 11, XFCE, i3, Polybar
 
