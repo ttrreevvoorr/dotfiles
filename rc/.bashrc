@@ -55,6 +55,27 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 # Add an "alert" alias for long running commands.  Use like so:
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
+# useful for aliasing real name in screenshots or streaming
+#USERALIAS="anon"
+LONGNAME="$USER"
+if ! [ -z ${USERALIAS+x} ]; then
+  LONGNAME="${USERALIAS}"
+fi
+
+SHORTNAME=${LONGNAME:0:4}
+USERDISPLAY="${LONGNAME}"
+
+#HOSTALIAS=debian
+if ! [ -z ${HOSTALIAS+x} ]; then
+  HOSTNAME="${HOSTALIAS}"
+fi
+LONGHOST="${HOSTNAME}"
+SHORTHOST="${HOSTNAME:0:4}"
+HOSTDISPLAY="${LONGHOST}"
+
+alias short='USERDISPLAY=$SHORTNAME;HOSTDISPLAY=$SHORTHOST'
+alias long='USERDISPLAY=$LONGNAME;HOSTDISPLAY=$LONGHOST'
+
 PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]$USERDISPLAY\[\033[01;31m\]@\[\033[01;36m\]$HOSTDISPLAY\[\033[00m\]:\[\033[01;34m\]\W \[\033[01;33m\]⚙ \[\[\033[00m\]'
 
 # PROTON_EAC_RUNTIME="/home/$USER/.steam/steam/steamapps/common/Proton EasyAntiCheat Runtime/" %command%
