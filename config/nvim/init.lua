@@ -156,6 +156,10 @@ eslint.setup({
   },
 })
 
+-- Mac
+vim.api.nvim_set_keymap('v', '<C-c>', ':w !pbcopy<CR>', { noremap = true, silent = true })
+-- Linux
+-- vim.api.nvim_set_keymap('v', '<C-c>', ':w !xclip -selection c<CR>', { noremap = true, silent = true })
 
 -- Dumb ass icons in the tree thing
 require'nvim-web-devicons'.get_icons()
