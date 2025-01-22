@@ -17,6 +17,9 @@ set $mod Mod4
 # is used in the bar {} block below.
 font pango:monospace 8
 
+bar {
+    status_command i3status
+}
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -39,9 +42,9 @@ bindsym $mod+Return exec xfce4-terminal
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-#bindsym $mod+d exec dmenu_run
-#bindsym $mod+d exec dmenu_run -i -p 'zulfiqar' -fn 'NotoSansMono:bold:pixelsize=17' -nb '#292929' -nf '#CCCCCC' -sf '#fdf6e3' -sb '#3a615c'
-bindsym $mod+d exec dmenu_run -i -p 'zulfiqar' -fn 'Inconsolata:bold:pixelsize=21' -nb '#292929' -nf '#CCCCCC' -sf '#fdf6e3' -sb '#3a615c'
+# bindsym $mod+d exec dmenu_run
+bindsym $mod+d exec sh -c 'dmenu_run -i -p "$(hostname)" -fn "Inconsolata:bold:pixelsize=21" -nb "#292929" -nf "#CCCCCC" -sf "#fdf6e3" -sb "#3a615c"'
+
 
 
 # For use with xfce4 whisker popup menu in Mint XFCE:
@@ -181,6 +184,7 @@ bindsym $mod+d exec dmenu_run -i -p 'zulfiqar' -fn 'Inconsolata:bold:pixelsize=2
  bindsym $mod+r mode "resize"
 
  for_window [ class="1Password" instance="1password"] floating enable move position center
+ for_window [ class="Bitwarden" instance="bitwarden"] floating enable move position center
  for_window [ title="Friends List" class="Steam" instance="Steam"] floating enable
  for_window [ title="^.*News" class="Steam" instance="Steam"] floating enable
  for_window [ class="Pavucontrol" instance="pavucontrol"] floating enable
