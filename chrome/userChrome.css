@@ -1,0 +1,62 @@
+
+#autohide-context { display:none!important; } /* hide "Exit Full Screen Mode" */
+#window-controls  { display:none!important; } /* hide window controls */
+
+/* #titlebar {display: none !important;} */
+
+#main-window {-moz-appearance:none !important;}
+
+#stop-reload-button,
+#reload-button,
+#customizableui-special-spring1,
+#customizableui-special-spring2,
+.titlebar-spacer,
+#titlebar-buttonbox-container,
+#firefox-view-button,
+#alltabs-button,
+#tabs-newtab-button,
+#star-button-box,
+#tracking-protection-icon-container,
+#identity-box,
+.titlebar-button {
+  width: 0 !important;
+  display: none !important;
+}
+
+#urlbar-input {
+  padding: 0 10px !important;
+}
+
+/*** Hide Tab Close buttons ***/
+.tabbrowser-tab .tab-close-button {
+  visibility: collapse !important;
+}
+
+#context-sendimage, #context-inspect-a11y {
+  display: none !important;
+}
+
+#tabbrowser-tabs {
+  border-inline-start: none !important;
+}
+
+.tab-background {
+  /*max-height: 35px !important;
+  min-height: initial !important;
+  margin: 3px !important;*/
+}
+.tab-content {
+  padding: 0 10px !important;
+}
+
+toolbarseparator {
+  color: #575268;
+}
+
+.tabbrowser-tab {
+  max-width: 12rem !important;
+}
+
+.tabbrowser-tab:not([pinned], [fadein]) {
+  max-width: 0.1px !important;
+}
