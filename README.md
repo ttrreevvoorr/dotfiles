@@ -1,7 +1,3 @@
-<p align="center">
-    <img width="800" src="https://i.imgur.com/VZaq66x.jpg" alt="debian neofetch">
-</p>
-
 > [!NOTE]  
 > TODO: Provide Arch installation steps also/instead. No longer use Debian on personal machines.
 
