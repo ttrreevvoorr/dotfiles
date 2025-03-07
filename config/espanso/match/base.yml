@@ -1,0 +1,104 @@
+# espanso match file
+
+# For a complete introduction, visit the official docs at: https://espanso.org/docs/
+matches:
+  # Print the current date
+  - trigger: ":date"
+    replace: "{{mydate}}"
+    vars:
+      - name: mydate
+        type: date
+        params:
+          format: "%m/%d/%Y"
+
+  # Print the current date and time
+  - trigger: ":now"
+    replace: "{{mydatetime}}"
+    vars:
+      - name: mydatetime
+        type: date
+        params:
+          format: "%m/%d/%Y %H:%M:%S"
+
+  - trigger: ":temp"
+    replace: "{{temp}}"
+    vars:
+      - name: temp
+        type: script 
+        params:
+          args:
+            - bash
+            - /home/ttrreevvoorr/scripts/weather.sh
+
+  - trigger: ":0"
+    replace: °
+
+  - trigger: ":heart"
+    replace: ♥
+
+  - trigger: ":c"
+    replace: ©
+
+  - trigger: ":tm"
+    replace: ™
+
+  - trigger: ":r"
+    replace: ®
+
+  - trigger: ":8"
+    replace: •
+
+  - trigger: ":v"
+    replace: "✓"
+
+  - trigger: "<!>"
+    replace: "⚠️"
+  
+  - trigger: ":*"
+    replace: "⭐"
+    
+  - trigger: ":arrow"
+    label: "Provide a list of arrows"
+    replace: "{{arrowList.arrow}}"
+    vars:
+      - name: "arrowList"
+        type: form
+        params:
+          layout: "[[arrow]]"
+          fields:
+            arrow:
+              type: list
+              default: →
+              values:
+                - →
+                - ←
+                - ↓
+                - ↑
+                - ⟷
+                - ↖
+                - ↗
+                - ↘
+                - ↙
+                - ↪
+                - ↩
+
+  - trigger: ":accent"
+    label: "Provide a list accent chars"
+    replace: "{{accentList.accent}}"
+    vars:
+      - name: "accentList"
+        type: form
+        params:
+          layout: "[[accent]]"
+          fields:
+            accent:
+              type: list
+              default: é
+              values:
+                - é
+                - è
+                - ê
+                - à
+                - ù
+                - ç
+                - ï

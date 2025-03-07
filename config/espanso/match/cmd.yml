@@ -1,0 +1,11 @@
+matches:
+  - trigger: "find-dir"
+    form: "find . -type d -name [[directory]]"
+
+  - trigger: ":weather"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "curl wttr.in/?format=%l:+%c+%t"
