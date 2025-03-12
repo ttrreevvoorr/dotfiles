@@ -1,6 +1,3 @@
-parent: base
-name: autocorrect
-
 matches:
   - trigger: "abandonned"
     replace: "abandoned"

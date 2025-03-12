@@ -2,6 +2,12 @@ matches:
   - trigger: "find-dir"
     form: "find . -type d -name [[directory]]"
 
+  - trigger: "find-file"
+    form: "find . -type f -name [[file]]"
+
+  - trigger: "ffmpeg-trim"
+    form: "ffmpeg -i [[input]] -ss [[start]] -to [[end]] -c copy [[output]]"
+
   - trigger: ":weather"
     replace: "{{output}}"
     vars:

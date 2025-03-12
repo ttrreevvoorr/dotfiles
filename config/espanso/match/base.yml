@@ -30,31 +30,31 @@ matches:
             - bash
             - /home/ttrreevvoorr/scripts/weather.sh
 
-  - trigger: ":0"
+  - trigger: ":0:"
     replace: °
 
   - trigger: ":heart"
     replace: ♥
 
-  - trigger: ":c"
+  - trigger: ":c:"
     replace: ©
 
-  - trigger: ":tm"
+  - trigger: ":tm:"
     replace: ™
 
-  - trigger: ":r"
+  - trigger: ":r:"
     replace: ®
 
-  - trigger: ":8"
+  - trigger: ":8:"
     replace: •
 
-  - trigger: ":v"
+  - trigger: ":v:"
     replace: "✓"
 
   - trigger: "<!>"
     replace: "⚠️"
   
-  - trigger: ":*"
+  - trigger: ":*:"
     replace: "⭐"
     
   - trigger: ":arrow"

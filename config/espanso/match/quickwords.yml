@@ -1,0 +1,8 @@
+
+matches:
+  - trigger: "bdr"
+    replace: "bedroom"
+
+  - trigger: "acqd"
+    replace: "acquired"
+
