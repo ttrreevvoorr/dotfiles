@@ -85,6 +85,9 @@ PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]$USERDISPLAY\[\033[01;31m\
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
+if [ -f ~/.bash_env ]; then
+    . ~/.bash_env
+fi
 
 export STEAM_ROOT=/home/ttrreevvoorr/.local/share/Steam
 
