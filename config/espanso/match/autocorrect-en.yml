@@ -1,4 +1,29 @@
 matches:
+  - trigger: "i"
+    replace: "I"
+    word: true
+  - trigger: "monday"
+    replace: "Monday"
+    word: true
+  - trigger: "tuesday"
+    replace: "Tuesday"
+    word: true
+  - trigger: "wednesday"
+    replace: "Wednesday"
+    word: true
+  - trigger: "thursday"
+    replace: "Thursday"
+    word: true
+  - trigger: "friday"
+    replace: "Friday"
+    word: true
+  - trigger: "yu"
+    replace: "you"
+    word: true
+  - trigger: "th"
+    replace: "the"
+    word: true
+
   - trigger: "abandonned"
     replace: "abandoned"
     propagate_case: true

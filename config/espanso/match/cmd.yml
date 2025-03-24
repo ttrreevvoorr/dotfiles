@@ -8,10 +8,16 @@ matches:
   - trigger: "ffmpeg-trim"
     form: "ffmpeg -i [[input]] -ss [[start]] -to [[end]] -c copy [[output]]"
 
+  - trigger: "gti"
+    replace: "git"
+
+  - trigger: "commmit"
+    replace: "commit"
+
   - trigger: ":weather"
     replace: "{{output}}"
     vars:
       - name: output
         type: shell
         params:
-          cmd: "curl wttr.in/?format=%l:+%c+%t"
+          cmd: "curl 'wttr.in/?format=%l:+%c+%t'"
