@@ -1,0 +1,9 @@
+# Aliases
+alias ..="cd .."
+alias ll='ls -alFh'
+alias la='ls -A'
+alias l='ls -CF'
+alias python='python3'
+alias zz='source ~/.zshrc'
+alias glow='glow -p'
+alias rmswp='rm ~/.local/state/nvim/swap/*'
