@@ -12,3 +12,6 @@
 
 "pactl -- set-sink-volume @DEFAULT_SINK@ +2%"
     XF86AudioRaiseVolume
+
+"smile"
+    m:0x4 + c:65
