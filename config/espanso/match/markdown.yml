@@ -1,0 +1,3 @@
+matches:
+  - trigger: ":table"
+    replace: "| a | b |\n|---|"
