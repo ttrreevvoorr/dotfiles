@@ -1,23 +1,18 @@
 matches:
   - trigger: "find-dir"
-    form: "find . -type d -name [[directory]]"
+    replace: "find . -type d -name [[directory]]"
 
   - trigger: "find-file"
-    form: "find . -type f -name [[file]]"
+    replace: "find . -type f -name [[file]]"
 
   - trigger: "ffmpeg-trim"
-    form: "ffmpeg -i [[input]] -ss [[start]] -to [[end]] -c copy [[output]]"
+    replace: "ffmpeg -ss [[start]] -i [[input]] -to [[end]] -c copy [[output]]"
 
   - trigger: "gti"
     replace: "git"
 
-  - trigger: "commmit"
+  - trigger: "comit"
     replace: "commit"
 
-  - trigger: ":weather"
-    replace: "{{output}}"
-    vars:
-      - name: output
-        type: shell
-        params:
-          cmd: "curl 'wttr.in/?format=%l:+%c+%t'"
+  - trigger: "commmit"
+    replace: "commit"

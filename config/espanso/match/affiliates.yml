@@ -1,0 +1,7 @@
+matches:
+  # Privacy
+  - trigger: ':aff.privacy'
+    replace: 'https://app.privacy.com/join/4ENFL'
+  # Proton mail
+  - trigger: ':aff.proton'
+    replace: 'https://pr.tn/ref/826BPAF14KDG'

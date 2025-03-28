@@ -30,10 +30,18 @@ matches:
             - bash
             - /home/ttrreevvoorr/scripts/weather.sh
 
+  - trigger: ":weather"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "curl 'wttr.in/?format=%l:+%c+%t'"
+
   - trigger: ":0:"
     replace: °
 
-  - trigger: ":heart"
+  - trigger: ":heart:"
     replace: ♥
 
   - trigger: ":c:"

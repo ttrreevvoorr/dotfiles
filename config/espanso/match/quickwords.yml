@@ -1,4 +1,3 @@
-
 matches:
   - trigger: "bdr"
     replace: "bedroom"
