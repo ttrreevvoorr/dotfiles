@@ -1,3 +1,6 @@
+-- Set leader key before any mappings
+vim.g.mapleader = "\\"
+
 -- Set options
 vim.opt.termguicolors = true
 vim.opt.number = true
@@ -6,8 +9,6 @@ vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 -- vim.opt.paste = true
-vim.opt.autoindent = true
-vim.opt.smartindent = true
 vim.opt.cindent = true
 vim.opt.cursorcolumn = true
 vim.opt.statusline = "%F"
@@ -28,7 +29,7 @@ vim.diagnostic.config({
 
 -- Plugin management with lazy.nvim
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
   local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
   vim.fn.system { 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath }
 end
@@ -38,9 +39,8 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
     { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
     { 'nvim-telescope/telescope.nvim', dependencies = { {'nvim-lua/plenary.nvim'} } },
-		{ 'nvim-tree/nvim-tree.lua' },
-		{ 'nvim-tree/nvim-web-devicons' },
-    { 'vim-syntastic/syntastic' },
+    { 'nvim-tree/nvim-tree.lua' },
+    { 'nvim-tree/nvim-web-devicons' },
     {
         'neovim/nvim-lspconfig',
         config = function()
@@ -52,10 +52,9 @@ require('lazy').setup({
                 on_attach = function(client, bufnr)
                     -- Key mappings for LSP functions
                     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-                    local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
                     -- Enable completion triggered by <c-x><c-o>
-                    buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+                    vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
                     -- Mappings.
                     local opts = { noremap=true, silent=true }
@@ -71,10 +70,10 @@ require('lazy').setup({
                     buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
                     buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
                     buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-                    buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-                    buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-                    buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-                    buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+                    buf_set_keymap('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
+                    buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+                    buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+                    buf_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
                 end,
             }
         end
@@ -116,83 +115,13 @@ require('lazy').setup({
     { "github/copilot.vim" },
     { "RRethy/vim-illuminate"},
     { "lewis6991/gitsigns.nvim" },
-    { "MunifTanjim/eslint.nvim" },
     { 'akinsho/git-conflict.nvim', version = "*", config = true},
-    {
-      "yetone/avante.nvim",
-      event = "VeryLazy",
-      version = false, -- Never set this value to "*"! Never!
-      opts = {
-        -- add any opts here
-        -- for example
-        provider = "claude",
-        openai = {
-          endpoint = "https://api.openai.com/v1",
-          model = "gpt-4o", -- your desired model (or use gpt-4o, etc.)
-          timeout = 30000, -- Timeout in milliseconds, increase this for reasoning models
-          temperature = 0,
-          max_completion_tokens = 8192, -- Increase this to include reasoning tokens (for reasoning models)
-          --reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
-        },
-        claude = {
-          endpoint = "https://api.anthropic.com",
-          model = "claude-3-5-sonnet-20241022",
-          timeout = 30000, -- Timeout in milliseconds
-          temperature = 0,
-          max_tokens = 4096,
-          disable_tools = true, -- disable tools!
-        },
-      },
-      -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-      build = "make",
-      -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
-      dependencies = {
-        "nvim-treesitter/nvim-treesitter",
-        "stevearc/dressing.nvim",
-        "nvim-lua/plenary.nvim",
-        "MunifTanjim/nui.nvim",
-        --- The below dependencies are optional,
-        "echasnovski/mini.pick", -- for file_selector provider mini.pick
-        "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
-        "hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
-        "ibhagwan/fzf-lua", -- for file_selector provider fzf
-        "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
-        "zbirenbaum/copilot.lua", -- for providers='copilot'
-        {
-          -- support for image pasting
-          "HakonHarnes/img-clip.nvim",
-          event = "VeryLazy",
-          opts = {
-            -- recommended settings
-            default = {
-              embed_image_as_base64 = false,
-              prompt_for_file_name = false,
-              drag_and_drop = {
-                insert_mode = true,
-              },
-              -- required for Windows users
-              use_absolute_path = true,
-            },
-          },
-        },
-        {
-          -- Make sure to set this up properly if you have lazy=true
-          'MeanderingProgrammer/render-markdown.nvim',
-          opts = {
-            file_types = { "markdown", "Avante" },
-          },
-          ft = { "markdown", "Avante" },
-        },
-      },
-    }
-}, {
-    debug = true,
 })
 
 
 -- Auto format on save
 vim.cmd [[
-    autocmd BufWritePre *.ts Neoformat
+    autocmd BufWritePre *.ts,*.tsx,*.js,*.jsx Neoformat
 ]]
 
 -- For when I just want to write code without the computer yelling at me
@@ -203,34 +132,13 @@ vim.keymap.set(
   { desc = "Toggle lsp_lines" }
 )
 
-local eslint = require("eslint")
-eslint.setup({
-  bin = 'eslint', -- or `eslint_d`
-  code_actions = {
-    enable = true,
-    apply_on_save = {
-      enable = true,
-      types = { "directive", "problem", "suggestion", "layout" },
-    },
-    disable_rule_comment = {
-      enable = true,
-      location = "separate_line", -- or `same_line`
-    },
-  },
-  diagnostics = {
-    enable = true,
-    report_unused_disable_directives = false,
-    run_on = "type", -- or `save`
-  },
-})
+require('lspconfig').eslint.setup{}
 
 -- Mac
-vim.api.nvim_set_keymap('v', '<C-c>', ':w !pbcopy<CR>', { noremap = true, silent = true })
--- Linux
--- vim.api.nvim_set_keymap('v', '<C-c>', ':w !xclip -selection c<CR>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('v', '<C-c>', ':w !pbcopy<CR>', { noremap = true, silent = true })
 
--- Dumb ass icons in the tree thing
-require'nvim-web-devicons'.get_icons()
+-- Linux
+vim.api.nvim_set_keymap('v', '<C-c>', ':w !xclip -selection c<CR>', { noremap = true, silent = true })
 
 -- The thing that highlights all the things under cursor 
 require('illuminate').configure({
@@ -355,42 +263,14 @@ vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help ta
 vim.cmd.colorscheme "catppuccin"
 
 -- Highlight settings
-vim.cmd("hi Title ctermfg=White ctermbg=Black")
-vim.cmd("hi TabLineFill ctermfg=Black ctermbg=White")
-vim.cmd("hi TabLine ctermfg=Grey ctermbg=DarkGray")
-vim.cmd("hi TabLineSel ctermfg=White ctermbg=DarkBlue")
-
--- Syntastic settings
-vim.g.syntastic_always_populate_loc_list = 1
-vim.g.syntastic_auto_loc_list = 1
-vim.g.syntastic_check_on_open = 1
-vim.g.syntastic_check_on_wq = 0
-
--- Enable syntax highlighting
-vim.cmd("syntax on")
-vim.cmd("filetype plugin indent on")
-
-
-local cmp = require'cmp'
-
-cmp.setup({
-    mapping = {
-        ['<C-n>'] = cmp.mapping.select_next_item(), -- Move to the next suggestion
-        ['<C-p>'] = cmp.mapping.select_prev_item(), -- Move to the previous suggestion
-        ['<C-Space>'] = cmp.mapping.complete(), -- Trigger completion
-        ['<C-e>'] = cmp.mapping.close(), -- Close completion
-        ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Confirm selection with Enter
-        ['<Tab>'] = cmp.mapping.confirm({ select = true }), -- Confirm selection with Tab
-    },
-    sources = {
-        { name = 'nvim_lsp' },
-    },
-})
+vim.cmd("hi Title guifg=White guibg=Black")
+vim.cmd("hi TabLineFill guifg=Black guibg=White")
+vim.cmd("hi TabLine guifg=Grey guibg=DarkGray")
+vim.cmd("hi TabLineSel guifg=White guibg=DarkBlue")
 
 vim.api.nvim_set_keymap('n', '<C-b>', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-f>', ':NvimTreeFindFile<CR>', { noremap = true, silent = true })
 
-vim.opt.termguicolors = true
 require("nvim-tree").setup({
   sort = {
     sorter = "case_sensitive",

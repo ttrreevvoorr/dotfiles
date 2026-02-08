@@ -1,46 +1,134 @@
-> [!NOTE]  
-> TODO: Provide Arch installation steps also/instead. No longer use Debian on personal machines.
+## Arch OS Install
 
-# Debian 11, XFCE, i3, Polybar
+1. Check for internet
 
-I wrote this script to streamline the process of reinstalling my OS. There are many dotfiles here, and you may feel free to leverage those. Unless you plan on installing a new OS, you do not need to read the following.
+```
+ip link
+```
 
-- When prompted during install, select Debiand desktop environment, XFCE, and standard system utilities.
-- On initial boot, likely an error regarding lightdm, so enter tty (ctrl+alt+f2)
-- Install nvidia drivers if applicable, add `contrib non-free` to `deb` and `deb-src` entries in `/etc/apt/sources.list`
-- `sudo apt update && sudo apt upgrade`
-- Get driver dependencies `sudo apt -y install linux-headers-$(uname -r) build-essential libglvnd-dev pkg-config`
-- `sudo apt install -y nvidia-detect && nvidia-detect`
-- Will likely tell you default `nvidia-driver` is fine. I can't tell if this is true or not.
-- If you disagree, install your preferred driver via `sudo apt install nvidia-tesla-4XX-driver` or similar
-- blacklist noveau by doing something like `echo 'blacklist nouveau \n options nouveau modeset=0' > /etc/modprobe.d/blacklist-nouveau.conf` (double check this file to make sure that piped right)
-- `systemctl reboot`
-- `sudo update-initramfs -u` and see if missing firmware, so download what is missing.
-- Example, if some of `rtl_nic` are missing then wget them from: https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/tree/rtl_nic/ into this director: `/lib/firmware/rtl_nic/`
-- After installing the missing firmware, run `sudo update-initramfs -u` again
+2. Partition the disk
+
+```
+cfdisk /dev/nvme0n1 # for example
+```
+
+| device | size | desc |
+|---|---|---|
+| /dev/nvme0n1p1 | 400M | boot |
+| /dev/nvme0n1p2 | 4G | swap |
+| /dev/nvme0n1p3 | rest of disk | fielsystem |
+
+3. Format the partitions
+
+```
+mkfs.fat -F 32 /dev/nvme0n1p1
+mkswap /dev/nvme0n1p2
+mkfs.ext4 /dev/nvme0n1p3
+```
+
+4. Mount the partitions
+
+```
+mount /dev/nvme0n1p3 /mnt
+mount --mkdir /dev/nvme0n1p1 /mnt/boot/efi
+swapon /dev/nvme0n1p2
+
+# check that partitions are mounted correctly
+lsblk
+```
+
+5. Install the base system
+
+```
+pacstrap /mnt base linux linux-firmware base-devel vim sof-firmware grub
+```
+
+6. Generate fstab
+
+```
+# make sure fstab looks good
+genfstab /mnt
+
+# append fstab to /mnt/etc/fstab
+genfstab -U /mnt >> /mnt/etc/fstab
+```
+
+7. Chroot into the new system
+
+```
+arch-chroot /mnt
+```
+
+8. Set timezone
+
+```
+ln -sf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
+```
+
+9. Set locale
+
+```
+vim /etc/locale.gen
+# uncomment en_US.UTF-8 UTF-8
+```
+
+10. Set hostname
+
+```
+echo "cool-host-name" > /etc/hostname
+```
+
+11. Useradd
+
+```
+useradd -m -G wheel -s /bin/bash ttrreevvoorr
+passwwd ttrreevvoorr
+visudo
+# uncomment the line that allows members of wheel to sudo
+```
+
+12. Setup stuff
+
+```
+systemctl enable NetworkManager
+pacman -Syu lightdm lightdm-gtk-greeter xfce4
+systemctl enable lightdm
+```
+
+13. grub install
+
+```
+grub-install /dev/nvme0n1
+grub-mkconfig -o /boot/grub/grub.cfg
+```
+
+```
+exit
+reboot
+```
+
 
 ## Installing packages
 
-```
-cd ~/Downloads && wget https://raw.githubusercontent.com/ttrreevvoorr/dotfiles/main/debian_post-install.sh
-chmod +x debian_post-install.sh && ./debian_post-install.sh
-```
-The above installation script will try to utilize a theme and icon set that may not be available on Debian. If they are not availble in this version of XFCE or whatever, go ahead and download themyourself, install the files, and run the xconf-query in debian_post-install.sh again.
-
-```
-Greybird-dark
-https://debian.pkgs.org/11/debian-main-arm64/greybird-gtk-theme_3.22.14-1_all.deb.html
-```
-```
-Adwaita
-https://debian.pkgs.org/10/debian-main-arm64/adwaita-icon-theme_3.30.1-1_all.deb.html
-```
-
-
 Starting moving files into appropriate locations:
+
 ```
 git clone https://github.com/ttrreevvoorr/dotfiles.git
 cd dotfiles
+```
+
+### Install yay
+
+```
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
+```
+
+
+### Other stuff
+```
+sudo pacman -Syu 7zip curl neovim i3 nitrogen xfce4-screenshooter ffmpeg yt-dlp galculator vlc ripgrep tmux wget git picom pavucontrol noisetorch htop 
 ```
 
 ---

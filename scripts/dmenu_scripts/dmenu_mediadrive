@@ -1,0 +1,38 @@
+#!/bin/bash
+
+# Start in the specified directory
+DIRECTORY="/mnt/MediaDrive"
+
+while true; do
+    # Truncate the directory path to a maximum of 50 characters
+    TRUNCATED_DIRECTORY="${DIRECTORY:0:50}"
+
+    # Use ls to list files and directories, including ".." to go up a directory
+    ITEM=$( (echo ".." && ls -1 "$DIRECTORY" | grep -v "^$") | dmenu -i -p "$TRUNCATED_DIRECTORY" \
+        -fn "Inconsolata:bold:pixelsize=21" \
+        -nb "#292929" -nf "#CCCCCC" -sf "#fdf6e3" -sb "#3a615c" \
+        -l 15)
+
+    # Check if a selection was made
+    if [ -n "$ITEM" ]; then
+        # Check if the selected item is ".." to go up a directory
+        if [ "$ITEM" == ".." ]; then
+            # Go up one directory
+            DIRECTORY=$(dirname "$DIRECTORY")
+        elif [ -d "$DIRECTORY/$ITEM" ]; then
+            # Change to the selected directory
+            DIRECTORY="$DIRECTORY/$ITEM"
+        elif [ -f "$DIRECTORY/$ITEM" ]; then
+            # Open the selected file with the default application
+            xdg-open "$DIRECTORY/$ITEM"
+            break  # Exit the loop after opening the file
+        else
+            # Handle the case where the item is neither a file nor a directory
+            echo "Error: '$ITEM' is not a valid file or directory."
+        fi
+    else
+        # Exit if no selection was made
+        break
+    fi
+done
+

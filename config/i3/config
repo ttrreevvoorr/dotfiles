@@ -35,6 +35,9 @@ floating_modifier $mod
 # start a terminal
 bindsym $mod+Return exec xfce4-terminal
 
+# start thunar 
+bindsym $mod+t exec thunar
+
 # kill focused window
 bindsym $mod+Shift+q kill
 
@@ -43,7 +46,10 @@ bindsym $mod+Shift+b bar mode toggle
 
 bar {
   tray_output primary
-  status_command i3status
+#status_command i3status 
+  status_command i3blocks
+  font pango:DejaVu Sans Mono 11
+#status_command exec /home/ttrreevvoorr/scripts/i3status/my_status.sh
 } 
 
 # start dmenu (a program launcher)

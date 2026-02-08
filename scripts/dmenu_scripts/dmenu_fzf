@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Fuzzy find files using dmenu
+file=$(find ~ -type f | dmenu -i -p "Find file:"  \
+  -fn "Inconsolata:bold:pixelsize=18" \
+  -nb "#292929" -nf "#CCCCCC" -sf "#fdf6e3" -sb "#3a615c" \
+  -l 10)
+
+# Open the selected file
+if [ -n "$file" ]; then
+    xdg-open "$file"
+fi
+

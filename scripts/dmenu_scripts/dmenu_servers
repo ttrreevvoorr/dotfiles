@@ -1,0 +1,27 @@
+
+# Server aliases and their corresponding hostnames
+declare -A servers=(
+  ["skofnung"]=$skofnung # "192.168.1.69"
+  ["linode_emd"]=$eatmydog
+  ["linode_nandaka"]=$nandaka
+  ["hrunting"]=$hrunting # "192.168.1.170"
+  ["appolo"]=$appolo # "192.168.1.17"
+)
+
+# Get the list of server aliases
+server_list=(${!servers[@]})
+
+# Use dmenu to prompt the user to select a server
+selected_server=$(printf "%s\n" "${server_list[@]}" | dmenu -i -p "ssh" \
+  -fn "Inconsolata:bold:pixelsize=21" \
+  -nb "#292929" -nf "#CCCCCC" -sf "#fdf6e3" -sb "#3a615c" \
+  -l 10)
+
+# Check if a server was selected
+if [ -n "$selected_server" ]; then
+  # Launch XFCE4 terminal and execute SSH command
+  xfce4-terminal --title="SSH to $selected_server" --command "ssh ${servers[$selected_server]}"
+else
+  echo "No server selected."
+fi
+
