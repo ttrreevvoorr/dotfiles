@@ -12,11 +12,13 @@
 
 set $mod Mod4
 
-
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:monospace 9
+font pango:monospace 15
 
+# Toggle Gaps
+bindsym $mod+g exec --no-startup-id i3-msg gaps inner all set 10
+bindsym $mod+shift+g exec --no-startup-id i3-msg gaps inner all set 0
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -35,8 +37,12 @@ floating_modifier $mod
 # start a terminal
 bindsym $mod+Return exec xfce4-terminal
 
-# start thunar 
+# Thunar
 bindsym $mod+t exec thunar
+
+
+# dmapps
+bindsym $mod+Tab exec dmapps
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -45,16 +51,13 @@ bindsym $mod+Shift+q kill
 bindsym $mod+Shift+b bar mode toggle
 
 bar {
-  tray_output primary
-#status_command i3status 
-  status_command i3blocks
-  font pango:DejaVu Sans Mono 11
-#status_command exec /home/ttrreevvoorr/scripts/i3status/my_status.sh
+  # tray_output primary
+  status_command i3status
 } 
 
 # start dmenu (a program launcher)
 #bindsym $mod+d exec dmenu_run
-bindsym $mod+d exec sh -c 'dmenu_run -i -p "$(hostname)" -fn "Inconsolata:bold:pixelsize=21" -nb "#292929" -nf "#CCCCCC" -sf "#fdf6e3" -sb "#3a615c"'
+bindsym $mod+d exec sh -c 'dmenu_run -i -p "$(hostname)" -fn "Inconsolata:bold:pixelsize=28" -nb "#292929" -nf "#CCCCCC" -sf "#fdf6e3" -sb "#3a615c" -l 10 -bw 8'
 
  # change focus
  bindsym $mod+j focus left
@@ -179,8 +182,6 @@ bindsym $mod+d exec sh -c 'dmenu_run -i -p "$(hostname)" -fn "Inconsolata:bold:p
 
  bindsym $mod+r mode "resize"
 
- for_window [ class="1Password" instance="1password"] floating enable move position center
- for_window [ class="Bitwarden" instance="bitwarden"] floating enable move position center
  for_window [ title="Friends List" class="Steam" instance="Steam"] floating enable
  for_window [ title="^.*News" class="Steam" instance="Steam"] floating enable
  for_window [ class="Pavucontrol" instance="pavucontrol"] floating enable
@@ -208,7 +209,7 @@ bindsym $mod+d exec sh -c 'dmenu_run -i -p "$(hostname)" -fn "Inconsolata:bold:p
  for_window [class="^.*"] border pixel 2 default_border pixel 2 default_floating_border pixel 2 border_color="#FFFFFF"
 
  exec --no-startup-id nitrogen --restore
- exec --no-startup-id compton --config /home/ttrreevvoorr/.config/compton.conf
- exec --no-startup-is xbindkeys
+ exec --no-startup-id xbindkeys
+ exec --no-startup-id pcloud 
  exec polybar primary &
  exec polybar seconday &

@@ -1,6 +1,3 @@
--- Set leader key before any mappings
-vim.g.mapleader = "\\"
-
 -- Set options
 vim.opt.termguicolors = true
 vim.opt.number = true
@@ -9,6 +6,8 @@ vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 -- vim.opt.paste = true
+vim.opt.autoindent = true
+vim.opt.smartindent = true
 vim.opt.cindent = true
 vim.opt.cursorcolumn = true
 vim.opt.statusline = "%F"
@@ -29,7 +28,7 @@ vim.diagnostic.config({
 
 -- Plugin management with lazy.nvim
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
-if not vim.uv.fs_stat(lazypath) then
+if not vim.loop.fs_stat(lazypath) then
   local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
   vim.fn.system { 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath }
 end
@@ -39,43 +38,42 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
     { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
     { 'nvim-telescope/telescope.nvim', dependencies = { {'nvim-lua/plenary.nvim'} } },
-    { 'nvim-tree/nvim-tree.lua' },
-    { 'nvim-tree/nvim-web-devicons' },
+		{ 'nvim-tree/nvim-tree.lua' },
+		{ 'nvim-tree/nvim-web-devicons' },
+    { 'vim-syntastic/syntastic' },
     {
         'neovim/nvim-lspconfig',
         config = function()
-            require('lspconfig').ts_ls.setup{
-                init_options = {
-                  maxTsServerMemory = 16384, -- Unhinged
-                },
-                -- cmd = { "node", "--max-old-space-size=16384", "tsserver" },
-                on_attach = function(client, bufnr)
-                    -- Key mappings for LSP functions
-                    local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-
-                    -- Enable completion triggered by <c-x><c-o>
+            vim.api.nvim_create_autocmd('LspAttach', {
+                callback = function(args)
+                    local bufnr = args.buf
+                    local opts = { noremap = true, silent = true, buffer = bufnr }
                     vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
-
-                    -- Mappings.
-                    local opts = { noremap=true, silent=true }
-                    buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-                    buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-                    buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-                    buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-                    buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-                    buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-                    buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-                    buf_set_keymap('n', '<space>ds', '<cmd>lua vim.lsp.buf.document_symbol()<CR>', opts)
-                    buf_set_keymap('n', '<space>ws', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>', opts)
-                    buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-                    buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-                    buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-                    buf_set_keymap('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
-                    buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-                    buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-                    buf_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
+                    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+                    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+                    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+                    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+                    vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
+                    vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
+                    vim.keymap.set('n', '<space>wl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, opts)
+                    vim.keymap.set('n', '<space>ds', vim.lsp.buf.document_symbol, opts)
+                    vim.keymap.set('n', '<space>ws', vim.lsp.buf.workspace_symbol, opts)
+                    vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
+                    vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, opts)
+                    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+                    vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
+                    vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+                    vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+                    vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
                 end,
-            }
+            })
+
+            vim.lsp.config('ts_ls', {
+                init_options = {
+                    maxTsServerMemory = 16384, -- Unhinged
+                },
+            })
+            vim.lsp.enable('ts_ls')
         end
     },
     {
@@ -115,13 +113,15 @@ require('lazy').setup({
     { "github/copilot.vim" },
     { "RRethy/vim-illuminate"},
     { "lewis6991/gitsigns.nvim" },
-    { 'akinsho/git-conflict.nvim', version = "*", config = true},
+    { "MunifTanjim/eslint.nvim" }
+}, {
+    debug = true,
 })
 
 
 -- Auto format on save
 vim.cmd [[
-    autocmd BufWritePre *.ts,*.tsx,*.js,*.jsx Neoformat
+    autocmd BufWritePre *.ts Neoformat
 ]]
 
 -- For when I just want to write code without the computer yelling at me
@@ -132,13 +132,34 @@ vim.keymap.set(
   { desc = "Toggle lsp_lines" }
 )
 
-require('lspconfig').eslint.setup{}
+local eslint = require("eslint")
+eslint.setup({
+  bin = 'eslint', -- or `eslint_d`
+  code_actions = {
+    enable = true,
+    apply_on_save = {
+      enable = true,
+      types = { "directive", "problem", "suggestion", "layout" },
+    },
+    disable_rule_comment = {
+      enable = true,
+      location = "separate_line", -- or `same_line`
+    },
+  },
+  diagnostics = {
+    enable = true,
+    report_unused_disable_directives = false,
+    run_on = "type", -- or `save`
+  },
+})
 
 -- Mac
 -- vim.api.nvim_set_keymap('v', '<C-c>', ':w !pbcopy<CR>', { noremap = true, silent = true })
-
 -- Linux
 vim.api.nvim_set_keymap('v', '<C-c>', ':w !xclip -selection c<CR>', { noremap = true, silent = true })
+
+-- Dumb ass icons in the tree thing
+require'nvim-web-devicons'.get_icons()
 
 -- The thing that highlights all the things under cursor 
 require('illuminate').configure({
@@ -263,14 +284,42 @@ vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help ta
 vim.cmd.colorscheme "catppuccin"
 
 -- Highlight settings
-vim.cmd("hi Title guifg=White guibg=Black")
-vim.cmd("hi TabLineFill guifg=Black guibg=White")
-vim.cmd("hi TabLine guifg=Grey guibg=DarkGray")
-vim.cmd("hi TabLineSel guifg=White guibg=DarkBlue")
+vim.cmd("hi Title ctermfg=White ctermbg=Black")
+vim.cmd("hi TabLineFill ctermfg=Black ctermbg=White")
+vim.cmd("hi TabLine ctermfg=Grey ctermbg=DarkGray")
+vim.cmd("hi TabLineSel ctermfg=White ctermbg=DarkBlue")
+
+-- Syntastic settings
+vim.g.syntastic_always_populate_loc_list = 1
+vim.g.syntastic_auto_loc_list = 1
+vim.g.syntastic_check_on_open = 1
+vim.g.syntastic_check_on_wq = 0
+
+-- Enable syntax highlighting
+vim.cmd("syntax on")
+vim.cmd("filetype plugin indent on")
+
+
+local cmp = require'cmp'
+
+cmp.setup({
+    mapping = {
+        ['<C-n>'] = cmp.mapping.select_next_item(), -- Move to the next suggestion
+        ['<C-p>'] = cmp.mapping.select_prev_item(), -- Move to the previous suggestion
+        ['<C-Space>'] = cmp.mapping.complete(), -- Trigger completion
+        ['<C-e>'] = cmp.mapping.close(), -- Close completion
+        ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Confirm selection with Enter
+        ['<Tab>'] = cmp.mapping.confirm({ select = true }), -- Confirm selection with Tab
+    },
+    sources = {
+        { name = 'nvim_lsp' },
+    },
+})
 
 vim.api.nvim_set_keymap('n', '<C-b>', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-f>', ':NvimTreeFindFile<CR>', { noremap = true, silent = true })
 
+vim.opt.termguicolors = true
 require("nvim-tree").setup({
   sort = {
     sorter = "case_sensitive",
