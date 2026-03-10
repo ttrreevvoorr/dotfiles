@@ -1,11 +1,11 @@
 
 # Server aliases and their corresponding hostnames
 declare -A servers=(
-  ["skofnung"]=$skofnung # "192.168.1.69"
-  ["linode_emd"]=$eatmydog
-  ["linode_nandaka"]=$nandaka
-  ["hrunting"]=$hrunting # "192.168.1.170"
-  ["appolo"]=$appolo # "192.168.1.17"
+  ["skofnung"]="${skofnung}" # "192.168.1.69"
+  ["eatmydog"]="${eatmydog}"
+  ["nandaka"]="${nandaka}"
+  ["hrunting"]="${hrunting}" # "192.168.1.170"
+  ["appolo"]="${appolo}" # "192.168.1.17"
 )
 
 # Get the list of server aliases
